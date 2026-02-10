@@ -32,15 +32,7 @@ def load_env():
                     os.environ[key.strip()] = val.strip()
 
 load_env()
-# Streamlit Cloud 또는 .env에서 API 키 로드
-try:
-    import streamlit as st
-    OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", os.environ.get("OPENAI_API_KEY", ""))
-except:
-    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
-
-
-
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
 
 
 # ============================================================
@@ -427,14 +419,7 @@ def run_streamlit():
                                 if keywords:
                                     st.caption(f"매칭 키워드: {', '.join(keywords)}")
                                 display_text = text if isinstance(text, str) else str(text)
-                                # 키워드 하이라이트
-                                if keywords:
-                                    highlighted = display_text
-                                    for kw in keywords:
-                                        highlighted = highlighted.replace(kw, f"**🔴 {kw}**")
-                                    st.markdown(highlighted)
-                                else:
-                                    st.text(display_text)
+                                st.text(display_text[:400] + "..." if len(display_text) > 400 else display_text)
                                 st.divider()
 
                     st.session_state.messages.append({"role": "assistant", "content": answer})
