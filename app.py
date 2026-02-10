@@ -32,7 +32,15 @@ def load_env():
                     os.environ[key.strip()] = val.strip()
 
 load_env()
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+# Streamlit Cloud 또는 .env에서 API 키 로드
+try:
+    import streamlit as st
+    OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", os.environ.get("OPENAI_API_KEY", ""))
+except:
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "")
+
+
+
 
 
 # ============================================================
