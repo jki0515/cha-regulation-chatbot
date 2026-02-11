@@ -18,7 +18,7 @@ from openai import OpenAI
 # 설정
 # ============================================================
 CHUNKS_PATH = "chunks.json"
-CHROMA_DIR = "./chroma_db"
+CHROMA_DIR = os.path.join(os.path.dirname(__file__), "chroma_db")
 COLLECTION_NAME = "cha_regulations"
 
 def load_env():
